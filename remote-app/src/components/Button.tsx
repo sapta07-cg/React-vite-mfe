@@ -3,6 +3,7 @@
 import type {RootState,AppDispatch} from 'host/Store'
 import { useSelector, useDispatch } from 'react-redux';
 import {increment} from 'host/counterSlice';
+import { addTen } from '../store/remoteSlice';
 
 
 
@@ -12,6 +13,13 @@ const Button= () => {
   const count=useSelector((state:RootState)=>state.counter.value)
   const dispatch=useDispatch<AppDispatch>()
 
+  const remoteValue=useSelector((state:RootState)=>state.remote?.value)
+
+  const handleClick=()=>{
+    console.log("Remote Button clicked");
+    dispatch(addTen());
+  }
+
   
 
 
@@ -20,6 +28,7 @@ const Button= () => {
     <>
 
     <h1>Remote Counter : {count}</h1>
+    <h2>Value of remote app : {remoteValue} </h2>
 
     <button
       style={{
@@ -31,6 +40,7 @@ const Button= () => {
       }}
 
 
+      onClick={handleClick}
 
     >
       Remote Button
